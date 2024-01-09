@@ -1,0 +1,24 @@
+version: 2
+
+sources:
+  - name: raw
+    schema: raw_data_circle
+    tables:
+      - name: parcel_product
+        identifier: raw_cc_parcel_product
+        description: parcel date, one line per product
+        columns:
+          - name: parcel_id
+            tests:
+              - not_null
+        tests:
+          - unique:
+              column_name: "(parcel_id || '_' || model_mame)"
+      - name: parcel
+        identifier: raw_cc_parcel
+        description: parcel shipping information
+        columns:
+          - name: parcel_id
+            tests:
+              - unique
+              - not_null
